@@ -1,5 +1,8 @@
 # Passerine
 
+![Python](https://img.shields.io/badge/python-3.11%2B-blue)
+![Node](https://img.shields.io/badge/node-22-339933?logo=node.js&logoColor=white)
+
 A private, Android-friendly observatory for WETHR, Whiskey Jack, Quire and operational evidence. Previously called **Perch** in the original handoff.
 
 React/TypeScript + Vite PWA, FastAPI, a separate SQLite database and **one independent polling process**. The app never starts bots, runs ingestion/scoring, submits forecasts, trades, or changes their configuration. Source failures retain the last successful observation.
