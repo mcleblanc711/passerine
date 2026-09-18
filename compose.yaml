@@ -1,0 +1,21 @@
+# Demo deployment preparation. Real source-host readers need explicit compatible mounts/runtime.
+services:
+  api:
+    build: .
+    ports: ["127.0.0.1:8000:8000"]
+    environment: &env
+      PASSERINE_PASSWORD: ${PASSERINE_PASSWORD:?Set a private password}
+      PASSERINE_ORIGIN: ${PASSERINE_ORIGIN:-http://127.0.0.1:8000}
+      PASSERINE_SECURE_COOKIE: ${PASSERINE_SECURE_COOKIE:-0}
+      PASSERINE_DEMO: "1"
+      PASSERINE_DB: /app/runtime/passerine.sqlite3
+    volumes: ["passerine:/app/runtime"]
+    restart: unless-stopped
+  worker:
+    build: .
+    command: ["python", "-m", "app.worker"]
+    environment: *env
+    volumes: ["passerine:/app/runtime"]
+    restart: unless-stopped
+volumes:
+  passerine:

@@ -1,0 +1,20 @@
+[Unit]
+Description=Passerine private monitoring API
+StartLimitIntervalSec=60
+StartLimitBurst=5
+
+[Service]
+Type=simple
+WorkingDirectory=%h/projects/passerine
+EnvironmentFile=%h/projects/passerine/.env
+Environment=PYTHONPATH=backend PYTHONDONTWRITEBYTECODE=1
+ExecStart=%h/projects/passerine/.venv/bin/uvicorn app.main:app --host 127.0.0.1 --port 8000 --no-proxy-headers
+Restart=always
+RestartSec=5
+TimeoutStopSec=60
+UMask=0077
+NoNewPrivileges=yes
+RestrictSUIDSGID=yes
+
+[Install]
+WantedBy=default.target

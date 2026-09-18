@@ -1,0 +1,13 @@
+.venv/
+.env
+*.swp
+*.swo
+runtime/
+__pycache__/
+.pytest_cache/
+frontend/node_modules/
+frontend/dist/
+*.sqlite3*
+frontend/test-results/
+frontend/playwright-report/
+frontend/*.tsbuildinfo

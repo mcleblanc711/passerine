@@ -1,0 +1,21 @@
+[Unit]
+Description=Passerine single read-only source polling worker
+StartLimitIntervalSec=60
+StartLimitBurst=5
+
+[Service]
+Type=simple
+WorkingDirectory=%h/projects/passerine
+EnvironmentFile=%h/projects/passerine/.env
+Environment=PYTHONPATH=backend PYTHONDONTWRITEBYTECODE=1
+UnsetEnvironment=PASSERINE_PASSWORD
+ExecStart=%h/projects/passerine/.venv/bin/python -m app.worker
+Restart=always
+RestartSec=5
+TimeoutStopSec=60
+UMask=0077
+NoNewPrivileges=yes
+RestrictSUIDSGID=yes
+
+[Install]
+WantedBy=default.target
