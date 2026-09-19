@@ -5,6 +5,7 @@ from decimal import Decimal
 from contextlib import closing
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'backend'))
 from app.forecasting import current_resolution
+from app.adapters.whiskeyjack_heartbeat import read_heartbeat
 from whiskeyjack_bot.ledger import connect_readonly
 from whiskeyjack_bot.show import assemble_show
 
@@ -35,7 +36,8 @@ def read(path):
                 else: settled[d['reservation_id']] = d['actual_microusd']
             actual = str(Decimal(sum(settled.values())) / 1000000)
             held = str(Decimal(sum(r['estimate_microusd'] for r in reserved if r['reservation_id'] not in settled)) / 1000000)
-        return dict(records=records, events=events, source_observed_at=max(times, default=None), actual=actual, reserved=held)
+        heartbeat_at, heartbeat_note = read_heartbeat(conn)
+        return dict(records=records, events=events, source_observed_at=max(times, default=None), heartbeat_at=heartbeat_at, heartbeat_note=heartbeat_note, actual=actual, reserved=held)
 
 if __name__ == '__main__':
     try:

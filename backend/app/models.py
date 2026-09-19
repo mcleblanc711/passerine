@@ -16,6 +16,7 @@ class Observation(BaseModel):
     origin: Literal['real', 'demo']
     source_observed_at: str | None = None
     heartbeat_at: str | None = None
+    heartbeat_note: str | None = None
     job_success_at: str | None = None
     provenance: str
     coverage: str

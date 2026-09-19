@@ -36,11 +36,20 @@ For frontend development, run the API/worker as above, set `PASSERINE_ORIGIN='ht
 | Source | Implemented and verified | Limits |
 | --- | --- | --- |
 | WETHR | Real `mode=ro` full-ledger transaction; all/history/epoch gross paper USD totals; current-epoch bankroll; open stake; settlement updates | No live/net/fees/unrealized metrics. Lifetime completeness unverified. Process heartbeat and last successful job unknown. |
-| Whiskey Jack | Real deployed `connect_readonly` and `assemble_show`, run with the existing matching interpreter; all canonical event categories; current resolution and matching local scores; latest activation actual/held costs | MiniBench only. Cup intentionally omitted/dormant. Official scores, host telemetry, activation-binding health, unrecorded-post status and export bootstrap are not implemented. |
+| Whiskey Jack | Real deployed `connect_readonly` and `assemble_show`, run with the existing matching interpreter; all canonical event categories; current resolution and matching local scores; latest activation actual/held costs; recorded tournament heartbeat reader (fixture-verified, not deployed) | MiniBench only. Heartbeat is recorded poll evidence, not current process health or successful work. Cup intentionally omitted/dormant. Official scores, host telemetry, activation-binding health, unrecorded-post status and export bootstrap are not implemented. |
 | Quire | Clearly disconnected in real mode; nested/date-only synthetic tasks in demo | OAuth and real pagination/hierarchy traversal are **not implemented**. Needs a private read-access OAuth registration, selected project IDs, verified payloads and quota policy. No tokens collected by this slice. |
-| Operations | Persisted sync failures, backoff, incident acknowledgement/recovery, deduplicated events, worker heartbeat | Bot heartbeat/job-success instrumentation is unavailable. No external dead-man check. Notification intents persist as `disabled`; no delivery attempt or push claim. |
+| Operations | Persisted sync failures, backoff, incident acknowledgement/recovery, deduplicated events, worker heartbeat | WETHR heartbeat and authoritative job-success evidence remain unavailable. No external dead-man check. Notification intents persist as `disabled`; no delivery attempt or push claim. |
 
 The September 18 real-read verification covered WETHR accounting and 24 Whiskey Jack forecasts / 116 canonical events. On September 19, WETHR still matches that revision; Whiskey Jack has advanced with no changes under `src/` in the intervening diff. Real reads were not repeated during the documentation review. See [discovery](docs/DISCOVERY.md) for exact revisions and deployment evidence. Synthetic fixtures are never presented as connected production data.
+
+The heartbeat follow-up reads the latest MiniBench `heartbeat` / `worker` row by
+ledger sequence, preserving its UTC timestamp independently of collection and
+forecast-event time. Missing, invalid, timezone-less or future timestamps remain
+unknown. The evidence view explains that tournament heartbeats occur at start,
+progress and completion; even completion does not establish job success. This slice
+was developed in an isolated worktree and has not been rebuilt or deployed. The
+running checkout's reader is loaded on each poll, so keep feature work isolated
+until an explicit rollout.
 
 Source readers require access to the database's directory and ordinary SQLite WAL/shared-memory locking. `mode=ro` forbids database writes, but derived locking files may be touched by SQLite. Never use `immutable=1`, copy only a live `.db`, run source reporting CLIs, or migrate a source database to satisfy Passerine. Whiskey Jack reader timeout is 45 seconds; WETHR SQLite busy timeout is five seconds. Failed sources back off independently to one hour; refresh does not bypass cooldowns.
 

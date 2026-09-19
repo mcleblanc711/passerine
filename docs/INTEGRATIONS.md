@@ -53,6 +53,23 @@ Use the source's append-only ledger and recorded platform evidence. Default to M
 | Cost/holds | Existing `tournament_state` reservation/settlement semantics and actual active policy; integer micro-USD conversion |
 | Host/worker health | Existing independent `deploy/wj-watchdog`, plus actual systemd/last-success evidence where available |
 
+The September 19 heartbeat slice uses the existing `tournament_events` columns
+`kind`, `scope`, `seq` and `created_at_utc`, verified against source revision
+`9e9fcfe51064620fa3d17b98d2321ec1f51095ff` (migration 012,
+`tournament.run_once`, `tournament.status`, and `deploy/wj-watchdog`). Select the
+newest sequence with `kind='heartbeat' AND scope='worker'` inside the same validated
+read-only transaction. The ledger supplies the MiniBench identity; the heartbeat
+itself has no independent project/activation binding. It cannot establish that the
+current activation is valid or that a process is still running.
+
+Normalize an aware timestamp to UTC; missing, malformed, timezone-less or future
+evidence becomes unknown without falling back to older rows. This is exposed as
+`heartbeat_at` plus an additive optional `heartbeat_note` in observation version 1.
+It does not update `source_observed_at` or `job_success_at`, create notification
+intents, or assign a healthy/stale bot classification. Poll completion can include
+failures, and resolution ingestion/scoring runs separately without this heartbeat.
+The implementation is fixture-verified and not yet deployed or real-read verified.
+
 Serialize selected `assemble_show` fields in a Perch-owned adapter rather than parse human-readable `show` output. Canonical history merges approval, submission attempt, submission verification, lifecycle, pre-forecast failure, resolution, and score streams. Consume every relevant stream or the joined history; lifecycle-only polling misses later resolution/score changes. Keep post, question, child/group, record, attempt, and project IDs distinct.
 
 The exporter currently publishes schema version 1 and 15 tables against ledger migrations through version 16. Validate the actual manifest version, ledger schema, required files, hashes, and row counts; unknown versions fail explicitly. It refuses file overwrites, so generate each snapshot into a unique directory. A valid final manifest is the completion signal. Do not treat a partially written directory as a completed sync or expose full research/model payloads in the mobile API.

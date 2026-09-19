@@ -15,6 +15,18 @@
   are established. The [roadmap](ROADMAP.md) defines small completion boundaries
   without treating these inputs as already available.
 
+## Recorded heartbeat slice · 2026-09-19
+
+- Use the existing MiniBench tournament heartbeat as the first telemetry slice.
+  Source inspection found this interface, while resolution-job success still needs
+  a producer. Expose the scope and limitations alongside the timestamp; do not
+  infer successful work from a heartbeat, completion flag or zero failures.
+- Add an optional explanatory field to the version-1 observation. Keep source
+  event time, collection time and job success independent. Invalid newest evidence
+  stays unknown; do not silently substitute an older valid heartbeat.
+- Implement in an isolated worktree because the live worker reloads the reader
+  script every poll. A commit or push is not permission to deploy this reader.
+
 ## Initial implementation · 2026-09-18
 
 - Name is **Passerine**. Historical handoff references to Perch describe the same project.

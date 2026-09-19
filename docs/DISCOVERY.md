@@ -24,6 +24,29 @@ unverified. Quire authorized configuration/payloads and authoritative bot heartb
 and last-successful-job interfaces are still missing. See the
 [post-phone-validation roadmap](ROADMAP.md) for bounded next slices.
 
+## Heartbeat interface follow-up · 2026-09-19
+
+The documentation slice was committed/pushed as `75480b2`. Subsequent read-only
+source inspection at Whiskey Jack `9e9fcfe51064620fa3d17b98d2321ec1f51095ff` found
+an existing tournament heartbeat interface: `tournament.run_once` appends
+`tournament_events` with kind `heartbeat`, scope `worker`, at poll start, progress
+and completion. Completion may include failures. `tournament.status` selects that
+scope; the watchdog reads the newest heartbeat row's `created_at_utc`. The timestamp
+is persisted evidence, not a continuous process heartbeat or a resolution-job
+success receipt. The heartbeat has no project/activation ID of its own; retain the
+reader's configured ledger namespace and do not claim activation-binding health.
+
+The checked-in resolution service runs ingestion followed by scoring, but emits no
+such heartbeat or durable successful-job record. The Passerine follow-up therefore
+exposes only existing tournament evidence and leaves job success unknown. No source
+entrypoint was run and no source files, configs, dependencies or databases changed.
+
+Implementation and synthetic tests use the isolated branch
+`feat/whiskeyjack-heartbeat`. This matters because the deployed Passerine worker
+launches `scripts/read_whiskeyjack.py` afresh each poll: editing that path in the
+running checkout can affect live reads without a restart. No feature changes were
+applied there. Live source reads and rollout of the heartbeat feature remain unverified.
+
 ## Original investigation · 2026-09-18
 
 Inspected through the GitHub connection on **2026-09-18**. This records source evidence, not a production health check. No bot commands were executed, services started, forecasts submitted, trades placed, or source repositories changed.

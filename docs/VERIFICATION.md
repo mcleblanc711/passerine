@@ -21,7 +21,52 @@ passed, and a Node filesystem check validated all 19 relative Markdown file link
 across README and the 11 docs files. Status claims and the final diff were reviewed.
 Prior backend/browser passes below were not rerun for this documentation-only change.
 
-## Passed
+## Recorded tournament heartbeat · 2026-09-19
+
+Implemented on isolated branch `feat/whiskeyjack-heartbeat`; not rebuilt or deployed.
+The running checkout stays on documentation commit `75480b2`. Source compatibility
+is grounded in inspected Whiskey Jack code, not a fresh production-ledger read.
+
+- Focused heartbeat suite: 11 passes covering missing/wrong-scope evidence,
+  sequence ordering, timezone normalization, invalid/future timestamps without
+  fallback, reader-to-observation persistence, replay, source failure retention,
+  unchanged source fixture bytes, and job-success separation for incomplete,
+  completed and failed polls.
+- Full offline backend suite: 18 passes, with the same two dependency deprecation
+  warnings. Ran outside the sandbox for ASGI test-client support; fixtures use
+  temporary synthetic databases and no bot execution or network.
+- TypeScript check passed with `tsc --noEmit`; no production assets were rebuilt.
+- Chrome using the isolated Vite development server and intercepted synthetic API
+  responses passed heartbeat labels, unknown job success and no horizontal overflow
+  at 360/390/430/1440px. The 390px screenshot was visually inspected. Chrome required
+  execution outside the sandbox because its sockets were blocked. This is a fixture
+  browser check, not deployment or device verification; prior S24+ installation and
+  private access remain confirmed.
+
+Repeat checks from a checkout with development dependencies installed:
+
+```bash
+.venv/bin/pytest -q tests/test_whiskeyjack_heartbeat.py
+.venv/bin/pytest -q
+frontend/node_modules/.bin/tsc --noEmit -p frontend/tsconfig.json
+```
+
+For the synthetic UI check, run `npm --prefix frontend run dev -- --port 5174`
+in an isolated checkout, then in another terminal:
+
+```bash
+PASSERINE_CHROMIUM=/opt/google/chrome/chrome node scripts/verify-heartbeat.mjs
+```
+
+Screenshots go to ignored `runtime/screenshots/`. Stop only that development server
+afterward. During this run the isolated worktree reused the original checkout's
+Python environment and node_modules; no dependencies were installed or changed.
+
+Authoritative successful-job evidence, WETHR heartbeat, activation-binding health,
+notification delivery, real-read verification of the new heartbeat projection and
+feature rollout remain outstanding.
+
+## Original passes · 2026-09-18
 
 - Production TypeScript check and Vite build (`npm --prefix frontend run build`). npm dependency audit reported no vulnerabilities at installation.
 - Seven offline backend tests: WAL-visible readonly reads/refused writes, missing-source refusal without creation, epoch/all-history totals and current bankroll, mutable settlements, replay deduplication, unknown money, independent failures/cooldown/recovery, session/origin/CSRF/spoofed-header rejection, stale-worker detection, acknowledgement without false recovery, latest-resolution score binding and demo/ledger identity separation.

@@ -11,6 +11,12 @@ available authorized inputs can change the order.
 
 ## 1. One authoritative successful-job observation
 
+The first telemetry sub-slice now exposes existing recorded MiniBench tournament
+heartbeats (fixture-verified in `feat/whiskeyjack-heartbeat`, not deployed). This
+does not complete job-success telemetry: poll heartbeats also accompany failed or
+in-progress work, and resolution ingestion is a separate job. Next establish the
+missing resolution-job completion interface below.
+
 Start by inspecting the existing Whiskey Jack resolution-job completion interface
 and installed schedule read-only. Its recorded six-hour cadence gives a concrete
 question: when did resolution ingestion last succeed? An enabled timer, recent
@@ -77,4 +83,4 @@ historical Cup integration and export bootstrap remain separate capabilities.
 
 Use [acceptance](ACCEPTANCE.md) for risk-focused checks and update README, discovery
 and verification when implementation status changes. No rebuild or redeployment
-is part of this documentation slice.
+is part of the recorded-heartbeat slice.
