@@ -19,8 +19,11 @@ ignores forwarded headers. No Tailscale identity header grants app access.
 6. Disconnect networking and reload: the offline screen should appear. Reconnect
    and reload to fetch current observations.
 
-Phone network access, installation and actual device behavior need user confirmation;
-host-to-phone Tailscale ping alone does not establish phone-to-app access rules.
+Chris confirmed private HTTPS access and PWA installation worked on the actual
+Samsung S24+ (recorded in the September 19 handoff). The steps above remain useful
+for repeat checks. The handoff does not separately enumerate Wi-Fi/cellular or
+device offline results. Background notification delivery remains disabled and
+unverified; successful installation does not establish delivery behavior.
 
 ## Services and configuration
 

@@ -1,5 +1,31 @@
 # Repository discovery
 
+## Current checkout review · 2026-09-19
+
+The earlier sections below record September 18 research and deployment evidence;
+this review supersedes their pending phone-validation and Git-placeholder claims.
+Passerine is a clean, functional Git worktree at
+`56bff27ecece602ab3b839e406999d4ac4f14253` before this documentation slice.
+
+WETHR remains at `05813605497b4ec5f1091c78a8af23055f64ef81`. Whiskey Jack is now at
+`9e9fcfe51064620fa3d17b98d2321ec1f51095ff`; the diff from the previously inspected
+`04f294e53ac8903ae9f55ed7a556ecb65115476f` changes docs, scripts, tests and fixtures,
+with no `src/` changes. Its worktree is clean. No source database was opened, and
+runtime schema compatibility or process-loaded bot revisions were not reverified.
+
+Read-only systemd inspection shows both Passerine units active/running with this
+repository as their working directory. Process state does not prove advancing
+collection or identify the exact code loaded by a running process. No service was
+restarted and nothing was rebuilt or redeployed.
+
+Chris's handoff confirms private HTTPS access and PWA installation worked on the
+actual Samsung S24+. Background notification delivery remains disabled and
+unverified. Quire authorized configuration/payloads and authoritative bot heartbeat
+and last-successful-job interfaces are still missing. See the
+[post-phone-validation roadmap](ROADMAP.md) for bounded next slices.
+
+## Original investigation · 2026-09-18
+
 Inspected through the GitHub connection on **2026-09-18**. This records source evidence, not a production health check. No bot commands were executed, services started, forecasts submitted, trades placed, or source repositories changed.
 
 ## Revisions and confidence
@@ -155,10 +181,11 @@ The exact tailnet HTTPS origin and Secure cookies are configured in the private 
 Source checkout revisions still match the discovery pins. WETHR collector/Telegram
 PIDs and activation timestamps were unchanged after deployment; Cup remains disabled.
 No bot deployment/config/prompt/dependency was modified. See PRIVATE-ACCESS.md for
-commands, URL and remaining actual-device checks.
+commands, URL and repeat-check instructions.
 
 Serve was subsequently configured by the user with sudo. The saved configuration
 contains HTTPS on 443 with the root handler proxying only http://127.0.0.1:8000, and
 no Funnel entry. The real HTTPS origin passed automated Chrome login, CSRF, secure
 cookie, source freshness, four-width navigation, offline cache and logout checks.
-Actual Android Wi-Fi/cellular access and installation remain user-device checks.
+Actual Android HTTPS access and installation were subsequently confirmed by Chris;
+see the September 19 review above. Separate network-transition results were not recorded.

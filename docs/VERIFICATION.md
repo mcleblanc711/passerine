@@ -1,5 +1,26 @@
 # Verification · 2026-09-18
 
+## Current status · 2026-09-19
+
+Chris confirmed that private HTTPS access and Android PWA installation worked on
+the actual Samsung S24+. Those checks are complete; the September 18 results below
+remain historical evidence. The confirmation does not separately enumerate network
+transitions or device offline behavior. Background notification delivery is still
+disabled and unverified. Compose and whole-host reboot recovery remain unverified.
+
+The documentation review started from a clean, functional Git checkout at
+`56bff27ecece602ab3b839e406999d4ac4f14253`. Read-only service inspection found both
+Passerine units active/running from this project directory, with main-process start
+times of September 18, 07:08:37 MDT. This establishes process state, not advancing
+worker heartbeat or fresh source observations. No build, redeployment, service
+restart, source read cycle or bot command was run during this review.
+
+Source checkout revisions were compared with the prior pins; see
+[discovery](DISCOVERY.md#current-checkout-review--2026-09-19). `git diff --check`
+passed, and a Node filesystem check validated all 19 relative Markdown file links
+across README and the 11 docs files. Status claims and the final diff were reviewed.
+Prior backend/browser passes below were not rerun for this documentation-only change.
+
 ## Passed
 
 - Production TypeScript check and Vite build (`npm --prefix frontend run build`). npm dependency audit reported no vulnerabilities at installation.
@@ -13,7 +34,7 @@ The ASGI test/client event-loop wakeup, Chromium local sockets and server listen
 
 ## Not verified / not implemented
 
-- Actual Android install, phone-to-host HTTPS over Wi-Fi/cellular, real-device background notifications, whole-host reboot and Docker image/Compose execution. See deployment verification below for host rollout status.
+- Real-device background notifications, whole-host reboot and Docker image/Compose execution. Actual S24+ HTTPS access and installation are now confirmed above; individual network-transition results are not separately recorded.
 - Quire OAuth, real task reads, quota behavior and incomplete-page reconciliation. Current adapter is explicitly unavailable; tasks are synthetic only in demo.
 - Source-host heartbeat/last-success projection, ongoing installed-unit/activation verification, external worker dead-man monitor. A recent successful read does not label a bot healthy.
 - Notification transport/retries/delivery. Outbox intents are durably `disabled`, and existing bot notifications remain in place.
@@ -47,5 +68,6 @@ No production-ready or notification-delivered claim is made. All verification-on
   CSRF/wrong-Origin rejection, valid refresh, all routes at 360/390/430/1440 widths,
   offline-only cache/fallback and logout. No TLS validation bypass was used.
   The default Playwright browser binary was missing; installed Chrome passed.
-- Actual S24+ Wi-Fi/cellular HTTPS access and Android PWA installation remain pending
-  user confirmation. Host browser checks do not establish actual-device behavior.
+- Actual S24+ HTTPS access and Android PWA installation were subsequently confirmed
+  by Chris; see the September 19 status above. Host browser checks alone did not
+  establish actual-device behavior.

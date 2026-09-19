@@ -4,7 +4,13 @@
 
 Both repositories were inspected through GitHub on 2026-09-18. [DISCOVERY.md](DISCOVERY.md) pins the revisions and links the implementation evidence. The mappings below are grounded in those commits; compare them with the deployed source/schema before enabling a connection.
 
-Use existing strict read-only helpers and versioned exports where possible. A command named `status` or `report` is not proof that it avoids writes. No unified monitoring HTTP API was established by this inspection; small Perch-owned projections remain implementation work. Preserve existing source services, configuration, and notification paths. Both bots already use ntfy.
+Passerine now implements WETHR's SQL projection and a Whiskey Jack selected-field
+reader using its source-owned interpreter. Quire remains disconnected; manifest
+export bootstrap and operational telemetry are not implemented. The September 19
+checkout comparison is recorded in discovery; prior successful real reads are
+September 18 evidence.
+
+Use existing strict read-only helpers and versioned exports where possible. A command named `status` or `report` is not proof that it avoids writes. No unified monitoring HTTP API was established by this inspection. Preserve existing source services, configuration, and notification paths. Both bots already use ntfy.
 
 ## WETHR
 

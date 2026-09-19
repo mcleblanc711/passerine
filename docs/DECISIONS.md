@@ -1,5 +1,22 @@
 # Implementation decisions · 2026-09-18
 
+## Post-phone-validation review · 2026-09-19
+
+- Complete the documentation reconciliation before the next integration: actual
+  S24+ access and installation are confirmed, while delivery remains disabled.
+  Preserve prior verification dates rather than imply tests were rerun.
+- Prioritize one authoritative job-success telemetry interface next because current
+  successful source reads cannot answer whether scheduled bot work succeeded.
+  Start with interface discovery; do not infer success from an enabled timer or a
+  ledger event. Any required source producer is a separate reviewable patch and
+  must not be applied to running bot deployments as part of Passerine development.
+- Keep Quire disconnected until authorized scope and verified payloads exist.
+  Keep notification delivery disabled until ownership and transport configuration
+  are established. The [roadmap](ROADMAP.md) defines small completion boundaries
+  without treating these inputs as already available.
+
+## Initial implementation · 2026-09-18
+
 - Name is **Passerine**. Historical handoff references to Perch describe the same project.
 - Small original scaffold; no full-stack template copied. React/Vite + FastAPI + app SQLite + single file-locked worker. No broker, LLM, trading or submission dependency.
 - Both local source revisions match the handoff. WETHR uses a Passerine-owned full read-only transaction. Whiskey Jack runs our selected-field reader with its existing matching interpreter and readonly ledger/show modules, with bytecode writes disabled. No source environment installation or configuration edits.

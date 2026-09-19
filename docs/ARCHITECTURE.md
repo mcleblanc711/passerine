@@ -1,6 +1,12 @@
 # Architecture defaults
 
-These are Perch implementation recommendations grounded in [DISCOVERY.md](DISCOVERY.md). The bot source interfaces were inspected; actual hosts and deployment settings remain to be verified.
+Passerine implements React/Vite, FastAPI, a separate SQLite app database and one
+polling process. Native user services and private Tailscale HTTPS are deployed;
+actual S24+ access and installation are confirmed. WETHR and Whiskey Jack have
+real read-only adapters. Quire, source heartbeat/job-success telemetry, notification
+delivery and an external watchdog remain follow-up work. The sections below include
+design guidance for those additions; see [discovery](DISCOVERY.md) and the
+[roadmap](ROADMAP.md) for the boundary between implemented and proposed behavior.
 
 ## Components
 
@@ -21,7 +27,7 @@ Keep the existing bot systemd services/timers and n8n deployment. Perch's Compos
 
 ## Source boundary
 
-WETHR needs a Perch-owned strict read-only SQL projection using its existing accounting definitions. Whiskey Jack already supplies `connect_readonly`, canonical history assembly, and a manifest-backed exporter. Prefer running source-compatible readers beside the deployed ledger and publishing only selected versioned observations to Perch. Such a reader is proposed integration code, not an existing HTTP endpoint.
+WETHR uses a Passerine-owned strict read-only SQL projection using its existing accounting definitions. Whiskey Jack uses `connect_readonly` and canonical history assembly through `scripts/read_whiskeyjack.py`, launched with the source-owned interpreter. Its manifest-backed exporter is available upstream but is not consumed by Passerine. Neither integration exposes a source HTTP endpoint; a separate projection/export bridge remains an option for container deployment.
 
 For a shared host, a verified read-only SQLite arrangement can be simpler than a new service. Validate WAL/shared-memory permissions and short consistent transactions before choosing it. Otherwise use consistent snapshots or atomically published projections. Do not copy only a live SQLite main file, use `immutable=1` on a changing file, or migrate the source schema. Match Whiskey Jack reader code to the deployed schema; a newer checkout may correctly refuse an older database.
 
@@ -60,7 +66,10 @@ Use bounded HTTP timeouts and retry budgets. Preserve last successful observatio
 
 ## Access
 
-Prepare private HTTPS deployment. [Tailscale Serve](https://tailscale.com/kb/1242/tailscale-serve) supports serving to a tailnet with HTTPS. Verify the actual account/network arrangement before selecting it; it is a recommended option, not existing infrastructure we have confirmed.
+Private HTTPS is deployed through Tailscale Serve to the loopback API. App password,
+exact-Origin and CSRF checks remain independent of tailnet membership; proxy identity
+headers are not trusted. Actual S24+ access and installation are confirmed. See
+[private access](PRIVATE-ACCESS.md) for the verified arrangement and recovery commands.
 
 The phone needs network access to the private origin. Provide an authenticated single-user session or a correctly configured trusted authentication proxy. If using proxy identity, accept it only from that proxy, keep the raw backend unreachable to clients, and allowlist the intended identity. Keep source tokens server-side. Protect mutation endpoints and OAuth callbacks with appropriate session/state checks.
 
