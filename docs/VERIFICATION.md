@@ -66,7 +66,31 @@ Authoritative successful-job evidence, WETHR heartbeat, activation-binding healt
 notification delivery, real-read verification of the new heartbeat projection and
 feature rollout remain outstanding.
 
-## Original passes · 2026-09-18
+## Approved rollout · 2026-09-19
+
+- Deployed feature commit `516ce8a` after explicit user approval. Production
+  `npm --prefix frontend run build` passed. Only Passerine API and worker were
+  stopped/started; both are active with new main processes.
+- App backup `runtime/pre-heartbeat-deploy-20260919.sqlite3` was created with umask
+  0077 using the SQLite backup API before the feature update; read-only
+  `PRAGMA integrity_check` returned `ok`.
+- Real WETHR and Whiskey Jack collections succeeded after restart. At 14:01:07 UTC,
+  MiniBench's recorded heartbeat was 14:00:20 UTC; job success remained null. No
+  production source database was migrated or written by Passerine.
+- `PASSERINE_CHROMIUM=/opt/google/chrome/chrome node scripts/verify-private.mjs`
+  with the existing server environment passed trusted HTTPS, login, cookie flags,
+  unauthenticated/spoofed identity rejection, Origin/CSRF controls, fresh worker,
+  real source reads, all routes at four widths, offline-only cache and logout.
+- WETHR collector and Telegram process IDs/start times were unchanged; resolution
+  service start time was unchanged and Cup remained inactive. Bot services and
+  source configuration were not modified.
+
+The 18-test backend suite passed before rollout; no backend behavior changed during
+deployment. Actual S24+ installation/access remain confirmed from prior validation.
+Successful-job telemetry, WETHR heartbeat, notifications and Compose remain gaps.
+Earlier undeployed statements in this document describe the pre-rollout stage.
+
+## Initial passes · 2026-09-18
 
 - Production TypeScript check and Vite build (`npm --prefix frontend run build`). npm dependency audit reported no vulnerabilities at installation.
 - Seven offline backend tests: WAL-visible readonly reads/refused writes, missing-source refusal without creation, epoch/all-history totals and current bankroll, mutable settlements, replay deduplication, unknown money, independent failures/cooldown/recovery, session/origin/CSRF/spoofed-header rejection, stale-worker detection, acknowledgement without false recovery, latest-resolution score binding and demo/ledger identity separation.

@@ -4,7 +4,7 @@ Passerine implements React/Vite, FastAPI, a separate SQLite app database and one
 polling process. Native user services and private Tailscale HTTPS are deployed;
 actual S24+ access and installation are confirmed. WETHR and Whiskey Jack have
 real read-only adapters. Recorded MiniBench tournament heartbeat reading is now
-implemented and fixture-verified in an undeployed feature branch. Quire, WETHR
+deployed and verified against real source reads on September 19. Quire, WETHR
 heartbeat and authoritative job-success telemetry, notification
 delivery and an external watchdog remain follow-up work. The sections below include
 design guidance for those additions; see [discovery](DISCOVERY.md) and the

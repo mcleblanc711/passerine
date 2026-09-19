@@ -47,7 +47,23 @@ launches `scripts/read_whiskeyjack.py` afresh each poll: editing that path in th
 running checkout can affect live reads without a restart. No feature changes were
 applied there. Live source reads and rollout of the heartbeat feature remain unverified.
 
-## Original investigation · 2026-09-18
+## Approved heartbeat deployment · 2026-09-19
+
+With explicit user approval, the running checkout was fast-forwarded to `516ce8a`,
+the production frontend was built, and only the two Passerine services were stopped
+and started. The app database was backed up first to ignored
+`runtime/pre-heartbeat-deploy-20260919.sqlite3`; SQLite integrity_check returned `ok`.
+Both bot sources subsequently collected without errors. The real MiniBench
+heartbeat read at 14:01:07 UTC carried source time 14:00:20 UTC; successful-job
+evidence stayed null. WETHR heartbeat remains unknown.
+
+Private HTTPS browser checks passed. WETHR collector and Telegram process IDs and
+start times were unchanged; the resolution service's start time was unchanged and
+Cup remained inactive. No bot entrypoint, ingestion, scoring, migration or source
+configuration change was invoked for this deployment. Scheduled bot work remains
+independent. This supersedes the undeployed status recorded in the follow-up above.
+
+## Original source investigation · 2026-09-18
 
 Inspected through the GitHub connection on **2026-09-18**. This records source evidence, not a production health check. No bot commands were executed, services started, forecasts submitted, trades placed, or source repositories changed.
 

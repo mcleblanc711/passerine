@@ -36,7 +36,7 @@ For frontend development, run the API/worker as above, set `PASSERINE_ORIGIN='ht
 | Source | Implemented and verified | Limits |
 | --- | --- | --- |
 | WETHR | Real `mode=ro` full-ledger transaction; all/history/epoch gross paper USD totals; current-epoch bankroll; open stake; settlement updates | No live/net/fees/unrealized metrics. Lifetime completeness unverified. Process heartbeat and last successful job unknown. |
-| Whiskey Jack | Real deployed `connect_readonly` and `assemble_show`, run with the existing matching interpreter; all canonical event categories; current resolution and matching local scores; latest activation actual/held costs; recorded tournament heartbeat reader (fixture-verified, not deployed) | MiniBench only. Heartbeat is recorded poll evidence, not current process health or successful work. Cup intentionally omitted/dormant. Official scores, host telemetry, activation-binding health, unrecorded-post status and export bootstrap are not implemented. |
+| Whiskey Jack | Real deployed `connect_readonly` and `assemble_show`, run with the existing matching interpreter; all canonical event categories; current resolution and matching local scores; latest activation actual/held costs; recorded tournament heartbeat (deployed and real-read verified September 19) | MiniBench only. Heartbeat is recorded poll evidence, not current process health or successful work. Cup intentionally omitted/dormant. Official scores, host telemetry, activation-binding health, unrecorded-post status and export bootstrap are not implemented. |
 | Quire | Clearly disconnected in real mode; nested/date-only synthetic tasks in demo | OAuth and real pagination/hierarchy traversal are **not implemented**. Needs a private read-access OAuth registration, selected project IDs, verified payloads and quota policy. No tokens collected by this slice. |
 | Operations | Persisted sync failures, backoff, incident acknowledgement/recovery, deduplicated events, worker heartbeat | WETHR heartbeat and authoritative job-success evidence remain unavailable. No external dead-man check. Notification intents persist as `disabled`; no delivery attempt or push claim. |
 
@@ -47,7 +47,8 @@ ledger sequence, preserving its UTC timestamp independently of collection and
 forecast-event time. Missing, invalid, timezone-less or future timestamps remain
 unknown. The evidence view explains that tournament heartbeats occur at start,
 progress and completion; even completion does not establish job success. This slice
-was developed in an isolated worktree and has not been rebuilt or deployed. The
+was developed in an isolated worktree, then built and deployed with explicit approval
+on September 19. Private HTTPS checks and real heartbeat reads passed. The
 running checkout's reader is loaded on each poll, so keep feature work isolated
 until an explicit rollout.
 

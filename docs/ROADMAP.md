@@ -12,7 +12,7 @@ available authorized inputs can change the order.
 ## 1. One authoritative successful-job observation
 
 The first telemetry sub-slice now exposes existing recorded MiniBench tournament
-heartbeats (fixture-verified in `feat/whiskeyjack-heartbeat`, not deployed). This
+heartbeats (deployed and real-read verified September 19 at `516ce8a`). This
 does not complete job-success telemetry: poll heartbeats also accompany failed or
 in-progress work, and resolution ingestion is a separate job. Next establish the
 missing resolution-job completion interface below.
@@ -82,5 +82,5 @@ gross paper USD totals do not certify lifetime coverage. Official platform score
 historical Cup integration and export bootstrap remain separate capabilities.
 
 Use [acceptance](ACCEPTANCE.md) for risk-focused checks and update README, discovery
-and verification when implementation status changes. No rebuild or redeployment
-is part of the recorded-heartbeat slice.
+and verification when implementation status changes. The recorded-heartbeat slice
+was subsequently built and deployed with explicit approval on September 19.

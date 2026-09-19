@@ -68,7 +68,9 @@ evidence becomes unknown without falling back to older rows. This is exposed as
 It does not update `source_observed_at` or `job_success_at`, create notification
 intents, or assign a healthy/stale bot classification. Poll completion can include
 failures, and resolution ingestion/scoring runs separately without this heartbeat.
-The implementation is fixture-verified and not yet deployed or real-read verified.
+The implementation is fixture-verified and was deployed on September 19 with
+explicit approval. Real worker reads now populate the recorded tournament heartbeat;
+authoritative successful-job evidence remains unknown.
 
 Serialize selected `assemble_show` fields in a Perch-owned adapter rather than parse human-readable `show` output. Canonical history merges approval, submission attempt, submission verification, lifecycle, pre-forecast failure, resolution, and score streams. Consume every relevant stream or the joined history; lifecycle-only polling misses later resolution/score changes. Keep post, question, child/group, record, attempt, and project IDs distinct.
 
