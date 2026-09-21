@@ -6,8 +6,10 @@ from contextlib import closing
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'backend'))
 from app.forecasting import current_resolution
 from app.adapters.whiskeyjack_heartbeat import read_heartbeat
+from app.adapters.whiskeyjack_questions import project_question
 from whiskeyjack_bot.ledger import connect_readonly
 from whiskeyjack_bot.show import assemble_show
+from whiskeyjack_bot.forecast.store import read_forecast_record
 
 def read(path):
     with closing(connect_readonly(Path(path))) as conn:
@@ -16,9 +18,11 @@ def read(path):
         records, events, times = [], [], []
         for row in conn.execute('SELECT record_id,post_id FROM forecast_records'):
             view = assemble_show(conn, row['record_id'])
+            question = project_question(read_forecast_record(conn, row['record_id']))
             latest, current_scores = current_resolution(view.resolution_history, view.score_history)
             scores = [dict(metric=s.metric, value=s.value, version=s.implementation_version, resolution_id=s.resolution_event_id) for s in current_scores]
             records.append(dict(id=row['record_id'], question_id=view.summary.question_id, type=view.summary.question_type, status=view.summary.status, resolution=latest.kind if latest else 'unresolved', resolution_id=latest.event_id if latest else None, outcome=latest.observation.outcome if latest else None, scores=scores, uncertainties=len(view.unresolved_uncertainties), at=latest.observed_at_utc if latest else view.summary.generated_at_utc, url=f"https://www.metaculus.com/questions/{row['post_id']}/" if row['post_id'] else None))
+            records[-1].update(question)
             for e in view.canonical_history:
                 payload = getattr(e, {'lifecycle': 'lifecycle_event'}.get(e.kind, e.kind))
                 identifier = getattr(payload, 'event_id', None) or getattr(payload, 'event_seq', None) or getattr(payload, 'attempt_id', None) or e.occurred_at_utc

@@ -98,6 +98,13 @@ Back up the **app** database with SQLite's backup API (below), not by copying a 
 
 ## Next three priorities
 
+The next MiniBench display slice is implemented on `feat/minibench-questions`,
+but not deployed: question titles/group context, expandable question details, and
+the bot's recorded probabilities or percentiles with forecast time and version.
+Community values are unavailable in the verified stored forecast interface, so
+the comparison column explicitly shows unavailable. See the
+[resume handoff](docs/HANDOFF.md) for the completed milestone and remaining work.
+
 1. Establish one narrow, authoritative job-success telemetry interface, preserving independent heartbeat and unknown states; prepare any source addition as a separate reviewable patch.
 2. Connect one selected Quire project through server-side read-only OAuth, quota-aware traversal and partial-sync retention once authorized inputs exist.
 3. Define ownership for Passerine alerts, then implement durable delivery retries through the existing transport and verify background delivery on the S24+.

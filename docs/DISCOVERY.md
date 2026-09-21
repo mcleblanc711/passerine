@@ -1,5 +1,34 @@
 # Repository discovery
 
+## Question display checkpoint · 2026-09-21
+
+The September 19 investigation and implementation continued on isolated branch
+`feat/minibench-questions`, based on deployed `7b91955`. Source checkout inspected:
+Whiskey Jack `9e9fcfe51064620fa3d17b98d2321ec1f51095ff`. The source's
+`forecast.store.read_forecast_record` is a local read that validates record schema,
+hash and scalar identity. Its `ForecastRecord.question` contains title, optional
+group-parent title, background, resolution criteria, fine print and units;
+`forecast.final_prediction` contains binary probability, labelled option probabilities
+or numeric/discrete percentile points. Passerine now projects only those selected
+fields plus forecast version, generation time and forecast as-of time.
+
+A read-only run of the new reader on September 19 successfully projected all 24
+real records: 13 binary, one multiple-choice, seven numeric and three discrete;
+all had titles. No source entrypoint, migration, ingestion or scoring ran.
+The source's `RecordedCommunityPrediction` explicitly requires null snapshots.
+All 24 stored forecast snapshots were null; the 18 stored resolution responses
+had no non-null latest aggregate (their aggregation method was unweighted).
+A one-time inspection of 3,189 saved question snapshots found 703 question entries
+and zero non-null `community_prediction_at_access_time` values. This is evidence
+about these stored fields, not a claim that the platform never exposes a community
+forecast. The app does not scan that snapshot directory during polling.
+
+The branch displays community evidence as unavailable and performs no live platform
+lookup. A current community comparison still requires a separately verified read
+interface, visibility/authentication rules, aggregation method, question identity,
+observation timestamp and quota policy. Do not treat historical or missing evidence
+as a current value, or feed community data into the bot's independent forecasting.
+
 ## Current checkout review · 2026-09-19
 
 The earlier sections below record September 18 research and deployment evidence;

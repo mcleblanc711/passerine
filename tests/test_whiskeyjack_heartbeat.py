@@ -85,6 +85,8 @@ def test_reader_adapter_and_persistence_keep_heartbeat_separate_from_success(
     monkeypatch.setitem(sys.modules, 'whiskeyjack_bot', package)
     monkeypatch.setitem(sys.modules, 'whiskeyjack_bot.ledger', SimpleNamespace(connect_readonly=connect_readonly))
     monkeypatch.setitem(sys.modules, 'whiskeyjack_bot.show', SimpleNamespace(assemble_show=lambda *_: pytest.fail('No forecasts in fixture')))
+    monkeypatch.setitem(sys.modules, 'whiskeyjack_bot.forecast', ModuleType('whiskeyjack_bot.forecast'))
+    monkeypatch.setitem(sys.modules, 'whiskeyjack_bot.forecast.store', SimpleNamespace(read_forecast_record=lambda *_: pytest.fail('No forecasts in fixture')))
     reader_path = Path(__file__).resolve().parents[1] / 'scripts/read_whiskeyjack.py'
     spec = importlib.util.spec_from_file_location('heartbeat_test_reader', reader_path)
     reader = importlib.util.module_from_spec(spec)

@@ -12,3 +12,9 @@ migration 012, `tournament.run_once`, `tournament.status`, and `deploy/wj-watchd
 They reuse source semantics, without importing notification or execution modules.
 
 No raw production database, forecast payload, credential, or screenshot of production data belongs in version control.
+
+The question-display slice reuses Whiskey Jack's `forecast.store.read_forecast_record`
+at `9e9fcfe51064620fa3d17b98d2321ec1f51095ff` through its existing interpreter.
+Selected-field mappings were independently written against `forecast.record`,
+`forecast.schema` and `questions.model`; synthetic tests contain no real questions
+or forecasts. The existing Whiskey Jack MIT notice applies to source reuse.

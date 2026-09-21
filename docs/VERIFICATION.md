@@ -1,5 +1,30 @@
 # Verification · 2026-09-18
 
+## Question display milestone · checkpoint 2026-09-21
+
+Checks completed September 19 in isolated `feat/minibench-questions`:
+
+- 25 backend tests passed (the same two dependency deprecation warnings), including
+  probabilities of zero/one, option ordering, numeric/discrete values, timestamps,
+  version retention and exclusion of private model/research fields. The existing
+  heartbeat reader fixture was extended for the new source read interface.
+- `frontend/node_modules/.bin/tsc --noEmit -p frontend/tsconfig.json` passed.
+- Real read-only projection succeeded for 24 records, all with question titles and
+  recorded forecasts. No community values were claimed; see discovery for coverage.
+- `PASSERINE_CHROMIUM=/opt/google/chrome/chrome node scripts/verify-questions.mjs`
+  passed against an isolated Vite server on port 5175 with intercepted synthetic API
+  responses: all four forecast types, zero probability, explicit unavailable
+  community, safely escaped source text, no browser errors and no horizontal
+  overflow at 360/390/430/1440px. The saved 390px screenshot was visually reviewed
+  at the September 21 checkpoint. The check handles details already expanded when
+  changing viewport; an initial test assertion was corrected for that state.
+
+Repeat with `.venv/bin/pytest -q`, the TypeScript command above, and
+`npm --prefix frontend run dev -- --port 5175` plus the browser command in another
+terminal. This worktree reused the main checkout's Python and Node dependencies;
+ordinary backend fixtures remain offline. No production build or deployment was
+performed for this feature. Main remains on deployed heartbeat revision `7b91955`.
+
 ## Current status · 2026-09-19
 
 Chris confirmed that private HTTPS access and Android PWA installation worked on

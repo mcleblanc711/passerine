@@ -40,6 +40,19 @@ Ledger timestamps and successful Perch reads do not prove the collector process 
 
 ## Whiskey Jack / Metaculus
 
+The undeployed `feat/minibench-questions` slice additionally calls
+`forecast.store.read_forecast_record` on the same validated read-only connection.
+Its selected display projection adds title, group title, question details, bot
+forecast rows, units, version, generation time and as-of time. Binary rows are
+Yes/No probabilities; multiple-choice rows follow the question's option order;
+numeric/discrete rows are the stored percentile values, not probabilities or a
+newly inferred distribution. Generated forecasts are not relabelled as submissions.
+Raw record JSON, research, rationale and model settings stay out of the response.
+
+Community status is explicitly unavailable through this stored-record interface.
+No live lookup or alternative aggregation schema is assumed. The existing lifecycle,
+resolution and score binding remain separate from the displayed forecast.
+
 Use the source's append-only ledger and recorded platform evidence. Default to MiniBench project `33122`; Cup project `33108` is a separate ledger, documented as withdrawn/dormant. Keep source-instance/profile identity in every entity and event key.
 
 | Need | Existing interface / boundary |

@@ -1,5 +1,16 @@
 # Implementation decisions · 2026-09-18
 
+## Question display milestone · 2026-09-21
+
+- Display source-validated question text and recorded bot forecasts with version
+  and timestamps, keeping submission status and resolution evidence independent.
+- Community values are absent from the verified stored interface. Use an explicit
+  unavailable column; do not invent values, fetch the platform without a designed
+  read/quota boundary, or modify the bot's deliberate exclusion of community inputs.
+- Keep this feature on an isolated branch until rollout is requested. Stop at the
+  tested, committed handoff so a fresh context can address the community interface
+  or deployment as a separate next step.
+
 ## Post-phone-validation review · 2026-09-19
 
 - Complete the documentation reconciliation before the next integration: actual
