@@ -1,5 +1,16 @@
 # Repository discovery
 
+## Deployment preparation · 2026-09-21
+
+Main remains clean at `7b91955`; the question feature is isolated at `0fcd86d`.
+Both Passerine services report active/running from the main checkout, with process
+start times September 19, 07:59:05 MDT. This is process evidence only; no live
+collection or HTTPS check was performed during preparation. Whiskey Jack is clean
+at `9834e3676fe593f0b18c14574ad2484725b8e41d`. Its diff from `9e9fcfe` changes
+watchdog deployment code, docs and tests, but no `src/` modules consumed by the
+reader. No source runtime state or loaded bot revision was reverified.
+See [the prepared rollout and rollback](DEPLOYMENT.md); rollout remains pending.
+
 ## Question display checkpoint · 2026-09-21
 
 The September 19 investigation and implementation continued on isolated branch

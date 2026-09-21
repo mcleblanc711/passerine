@@ -33,6 +33,13 @@ forecast submissions or production assets were changed by this feature.
 
 ## Next decision and boundaries
 
+Deployment preparation continued September 21 without changing live services.
+See [DEPLOYMENT.md](DEPLOYMENT.md) for the concrete preflight, backup, rollout,
+acceptance and rollback procedure. The production build now passes in the isolated
+worktree; all 25 backend tests pass again. Preparation is not rollout authorization.
+Main is still `7b91955`; Whiskey Jack advanced to `9834e36` with no `src/` changes
+since the inspected source pin. See discovery and verification for current evidence.
+
 Either deploy this useful display slice when requested, or first investigate a
 separate read-only community-data interface. The stored forecast model deliberately
 has null community snapshots. Inspected resolution aggregates and the saved SDK

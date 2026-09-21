@@ -1,5 +1,28 @@
 # Verification · 2026-09-18
 
+## Deployment preparation · 2026-09-21
+
+In isolated `/tmp/passerine-questions.6iLfRS`, feature code `0fcd86d`:
+
+- `/home/cleblanc/projects/passerine/.venv/bin/pytest -q`: 25 passed,
+  two existing dependency deprecation warnings. A first sandbox run was interrupted;
+  the full rerun outside the sandbox completed in 73.88 seconds.
+- `npm --prefix frontend run build`: TypeScript and Vite production build passed.
+  Artifacts are in this worktree's ignored `frontend/dist`, not the deployed tree.
+  The original checkout's Python environment and Node modules were reused without
+  installing or changing dependencies; the Node modules link was recreated locally.
+- `PASSERINE_CHROMIUM=/opt/google/chrome/chrome node scripts/verify-questions.mjs`:
+  passed with synthetic API responses at 360/390/430/1440px, including all forecast
+  types, zero probability, unavailable community and escaped source text. The first
+  browser run timed out loading the preview; the rerun outside the sandbox passed.
+  The isolated Vite server on port 5175 was stopped afterward.
+- Read-only service inspection: both Passerine services active/running from the
+  main checkout. No services stopped/restarted, production assets replaced,
+  production databases backed up/restored, or live source reads requested.
+
+The prepared [deployment procedure](DEPLOYMENT.md) includes post-rollout checks.
+Private HTTPS and real-reader evidence above/below remain historical until rollout.
+
 ## Question display milestone · checkpoint 2026-09-21
 
 Checks completed September 19 in isolated `feat/minibench-questions`:
