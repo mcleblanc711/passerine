@@ -1,9 +1,10 @@
 # MiniBench question display rollout
 
-Prepared September 21, 2026; **not deployed**. Feature code is `0fcd86d`
-on `feat/minibench-questions`. Current deployed checkout is `master` at
-`7b91955` in `/home/cleblanc/projects/passerine`. Preparation and build artifacts
-live separately in `/tmp/passerine-questions.6iLfRS`.
+Prepared and deployed September 21, 2026 after user authorization. Release
+`1bb2779` (feature code `0fcd86d`) is deployed from `master` in
+`/home/cleblanc/projects/passerine`. The previous release was `7b91955`.
+The procedure below records that rollout; do not rerun its backup destination
+or reuse its old preflight assumptions. See [verification](VERIFICATION.md).
 
 This release displays saved question text and recorded bot forecasts. Community
 forecasts remain explicitly unavailable. It adds no database migration,

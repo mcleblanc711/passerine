@@ -1,5 +1,16 @@
 # Repository discovery
 
+## Question display deployed · 2026-09-21
+
+With user authorization, main was fast-forwarded from `7b91955` to release
+`1bb2779`, built, and the two Passerine services restarted. App backup integrity
+and private HTTPS checks passed. The live read model now contains 35 recorded
+forecasts across binary, multiple-choice, numeric and discrete questions; every
+record has a title and forecast fields. Community remains unavailable and job
+success remains unknown. Collection and worker heartbeat advanced after rollout.
+Bot services/configuration/dependencies were not changed; tournament jobs continued
+on their existing schedule. The following preparation/checkpoint entries are historical.
+
 ## Deployment preparation · 2026-09-21
 
 Main remains clean at `7b91955`; the question feature is isolated at `0fcd86d`.

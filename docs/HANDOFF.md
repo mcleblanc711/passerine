@@ -1,5 +1,19 @@
 # Resume after the question-display milestone
 
+## Deployed · September 21, 2026
+
+The user authorized rollout. Release `1bb2779` is now deployed from the main
+checkout on `master`; only Passerine API/worker were stopped and restarted.
+Production build, backup integrity, private HTTPS/security/layout verification and
+live question checks passed. The live check found 35 recorded forecasts across all
+four types, with titles, forecast version/timestamps and unavailable community;
+worker heartbeat advanced. See [verification](VERIFICATION.md) for evidence.
+The feature worktree remains at `1bb2779`; continue new work in isolation because
+the deployed worker reloads its source reader every poll. Community-interface
+assessment is the next unresolved feature; no rollout remains pending for this slice.
+
+The original checkpoint below is historical and is superseded by this deployment.
+
 Checkpoint: September 21, 2026. The user requested a solid stopping point before
 clearing context. The implementation is complete for stored question text and bot
 forecasts; the requested community comparison is still blocked on a verified data

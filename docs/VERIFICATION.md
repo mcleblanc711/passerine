@@ -1,5 +1,37 @@
 # Verification · 2026-09-18
 
+## Authorized question-display rollout · 2026-09-21
+
+- Deployed release `1bb2779` by fast-forward from `7b91955`. Production
+  `npm --prefix frontend run build` passed. Only Passerine API/worker were stopped
+  and started, at 12:50:28 UTC; no dependency or configuration changes.
+- SQLite backup API created ignored `runtime/pre-questions-deploy-20260921.sqlite3`
+  with umask 0077; strict read-only integrity check returned `ok`. Previous built
+  frontend saved under private `runtime/pre-questions-assets-20260921/dist`.
+- First successful post-restart WETHR collection: 12:50:29 UTC; Whiskey Jack:
+  12:50:30 UTC. Both had no source error. Quire remains disconnected.
+- `scripts/verify-private.mjs`, with existing server environment and installed
+  Chrome, passed trusted HTTPS, login/cookie flags, unauthenticated/spoofed identity
+  rejection, Origin/CSRF controls, real reads, worker freshness, all routes at
+  360/390/430/1440px, offline-only cache and logout. Chrome needed execution outside
+  the sandbox after its socket operation was denied.
+- Additional ignored `runtime/verify-questions-live.mjs` passed against the real
+  authenticated HTTPS app: 35 records across all four forecast types, titles,
+  nonempty forecast rows, version and valid generation/as-of timestamps, unavailable
+  community, unknown job success, rendered tables/details at 390px with no overflow,
+  and explicit separation of recorded prediction from submission status.
+  Its source collection time was 13:19:59 UTC and advancing worker heartbeat reached
+  13:20:30 UTC. The check logged out its own session and printed only summary data.
+- WETHR collector/Telegram PIDs and start times remained unchanged. Resolution
+  service start time stayed 12:25:25 UTC; Cup stayed inactive. Tournament execution
+  advanced on its existing schedule (latest observed start 13:20:04 UTC). No bot
+  restart, ingestion/scoring command, source migration or source configuration edit
+  was performed by deployment.
+
+The 25 backend tests and synthetic question UI checks passed in preparation;
+application code did not change during rollout. No new actual-phone check was
+performed. Community data, job-success telemetry, notifications and Quire remain gaps.
+
 ## Deployment preparation · 2026-09-21
 
 In isolated `/tmp/passerine-questions.6iLfRS`, feature code `0fcd86d`:
